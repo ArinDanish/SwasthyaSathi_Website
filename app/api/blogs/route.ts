@@ -9,7 +9,6 @@ type BlogRow = {
   title: string;
   excerpt: string;
   readTime: string;
-  slug: string | null;
 };
 
 function getBlogTableName() {
@@ -31,15 +30,21 @@ export async function GET() {
         category,
         title,
         excerpt,
-        read_time AS readTime,
-        slug
+        read_time AS readTime
        FROM ${tableName}
-       where is_active = 1
+       WHERE is_active = 1
        ORDER BY created_at DESC, id DESC
        LIMIT 3`
     );
 
-    return NextResponse.json({ blogs: rows as BlogRow[] });
+    return NextResponse.json(
+      { blogs: rows as BlogRow[] },
+      {
+        headers: {
+          "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
+        },
+      }
+    );
   } catch (error) {
     console.error("Blog fetch failed:", error);
 
@@ -49,4 +54,3 @@ export async function GET() {
     );
   }
 }
-

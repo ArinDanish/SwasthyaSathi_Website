@@ -14,23 +14,74 @@ const links = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    links.forEach((link) => {
-      if (link.href !== pathname) {
+    const prefetchRoutes = () => {
+      links.forEach((link) => {
         router.prefetch(link.href);
-      }
-    });
-  }, [pathname, router]);
+      });
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(prefetchRoutes);
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = window.setTimeout(prefetchRoutes, 250);
+    return () => window.clearTimeout(timeoutId);
+  }, [router]);
+
+  useEffect(() => {
+    setIsNavigating(false);
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isNavigating) {
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setIsNavigating(false);
+    }, 8000);
+
+    return () => window.clearTimeout(timeout);
+  }, [isNavigating]);
+
+  const warmRoute = (href: string) => {
+    router.prefetch(href);
+  };
+
+  const markNavigation = (href: string) => {
+    setIsOpen(false);
+
+    if (href !== pathname) {
+      setIsNavigating(true);
+    }
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[--sand]/90 backdrop-blur-md border-b border-[--line]">
+    <nav className="relative sticky top-0 z-50 bg-[--sand]/90 backdrop-blur-md border-b border-[--line]">
+      <span
+        aria-hidden="true"
+        className={`absolute inset-x-0 top-0 h-0.5 origin-left bg-[--coral] transition-transform duration-500 ${
+          isNavigating ? "scale-x-100" : "scale-x-0"
+        }`}
+      />
       <div className="container">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" prefetch className="flex items-center gap-3 group">
+          <Link
+            href="/"
+            prefetch
+            onClick={() => markNavigation("/")}
+            onFocus={() => warmRoute("/")}
+            onPointerEnter={() => warmRoute("/")}
+            className="flex items-center gap-3 group"
+          >
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[--teal] text-[--sand]">
               <PulseLine className="h-3.5 w-7" color="currentColor" strokeWidth={4} />
             </span>
@@ -48,6 +99,10 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   prefetch
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => markNavigation(link.href)}
+                  onFocus={() => warmRoute(link.href)}
+                  onPointerEnter={() => warmRoute(link.href)}
                   className={`group relative font-medium text-sm tracking-wide transition-colors ${
                     active ? "text-[--ink]" : "text-[--ash] hover:text-[--ink]"
                   }`}
@@ -67,6 +122,9 @@ export default function Navigation() {
           <Link
             href="/contact"
             prefetch
+            onClick={() => markNavigation("/contact")}
+            onFocus={() => warmRoute("/contact")}
+            onPointerEnter={() => warmRoute("/contact")}
             className="hidden md:inline-flex items-center gap-2 bg-[--ink] hover:bg-[--teal-deep] text-[--sand] font-semibold text-sm py-2.5 px-5 rounded-full transition-colors"
           >
             Book a demo
@@ -109,7 +167,9 @@ export default function Navigation() {
                 key={link.href}
                 href={link.href}
                 prefetch
-                onClick={() => setIsOpen(false)}
+                onClick={() => markNavigation(link.href)}
+                onFocus={() => warmRoute(link.href)}
+                onPointerEnter={() => warmRoute(link.href)}
                 className="block text-[--ink] font-medium py-1"
               >
                 {link.label}
@@ -118,7 +178,9 @@ export default function Navigation() {
             <Link
               href="/contact"
               prefetch
-              onClick={() => setIsOpen(false)}
+              onClick={() => markNavigation("/contact")}
+              onFocus={() => warmRoute("/contact")}
+              onPointerEnter={() => warmRoute("/contact")}
               className="block w-full text-center bg-[--ink] text-[--sand] font-semibold py-3 rounded-full"
             >
               Book a demo
