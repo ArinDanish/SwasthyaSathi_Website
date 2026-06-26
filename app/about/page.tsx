@@ -14,7 +14,7 @@ export default function AboutPage() {
             </h1>
             <p className="section-subtitle">
               Swasthya Sathi exists because clinical teams were spending more
-              time on forms than on patients. Here's who we are and why we
+              time on forms than on patients. Here&apos;s who we are and why we
               build the way we do.
             </p>
           </div>

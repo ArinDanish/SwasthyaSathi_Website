@@ -13,9 +13,9 @@ export default function ContactPage() {
       <div className="container">
         <div className="max-w-2xl mb-14">
           <p className="eyebrow mb-4">Get in touch</p>
-          <h1 className="section-title">Let's talk about your clinic</h1>
+          <h1 className="section-title">Let&apos;s talk about your clinic</h1>
           <p className="section-subtitle">
-            Tell us a bit about how your clinic runs today — we'll come back
+            Tell us a bit about how your clinic runs today — we&apos;ll come back
             with a setup that fits, not a generic demo.
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function ContactPage() {
           <div className="bg-white rounded-2xl border border-[--line] p-7 md:p-9">
             {formStatus === "success" && (
               <div className="mb-6 bg-[--sage] text-[--teal-deep] rounded-xl px-5 py-4 text-sm font-medium">
-                Message sent. We'll be in touch within one business day.
+                Message sent. We&apos;ll be in touch within one business day.
               </div>
             )}
             {formStatus === "error" && (

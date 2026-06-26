@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import PulseLine from "./PulseLine";
 
 const links = [
@@ -15,13 +15,22 @@ const links = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    links.forEach((link) => {
+      if (link.href !== pathname) {
+        router.prefetch(link.href);
+      }
+    });
+  }, [pathname, router]);
 
   return (
     <nav className="sticky top-0 z-50 bg-[--sand]/90 backdrop-blur-md border-b border-[--line]">
       <div className="container">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" prefetch className="flex items-center gap-3 group">
             <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-[--teal] text-[--sand]">
               <PulseLine className="h-3.5 w-7" color="currentColor" strokeWidth={4} />
             </span>
@@ -38,7 +47,8 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative font-medium text-sm tracking-wide transition-colors ${
+                  prefetch
+                  className={`group relative font-medium text-sm tracking-wide transition-colors ${
                     active ? "text-[--ink]" : "text-[--ash] hover:text-[--ink]"
                   }`}
                 >
@@ -56,6 +66,7 @@ export default function Navigation() {
           {/* CTA Button */}
           <Link
             href="/contact"
+            prefetch
             className="hidden md:inline-flex items-center gap-2 bg-[--ink] hover:bg-[--teal-deep] text-[--sand] font-semibold text-sm py-2.5 px-5 rounded-full transition-colors"
           >
             Book a demo
@@ -97,6 +108,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch
                 onClick={() => setIsOpen(false)}
                 className="block text-[--ink] font-medium py-1"
               >
@@ -105,6 +117,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/contact"
+              prefetch
               onClick={() => setIsOpen(false)}
               className="block w-full text-center bg-[--ink] text-[--sand] font-semibold py-3 rounded-full"
             >

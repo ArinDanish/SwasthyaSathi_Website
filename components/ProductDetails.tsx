@@ -150,7 +150,7 @@ export default function ProductDetails() {
             Ready to get started?
           </h3>
           <p className="text-[--sage]/80 mb-5">
-            Tell us about your clinic and we'll tailor a setup to your
+            Tell us about your clinic and we&apos;ll tailor a setup to your
             specific workflow and patient volume.
           </p>
           <a

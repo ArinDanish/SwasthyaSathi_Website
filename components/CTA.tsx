@@ -13,7 +13,7 @@ export default function CTA() {
         <div className="max-w-2xl mx-auto text-center">
           <p className="eyebrow mb-4 text-[--coral]">Ready when you are</p>
           <h2 className="font-display text-3xl md:text-4xl font-semibold mb-5">
-            Let's see it run on a real day at your clinic.
+            Let&apos;s see it run on a real day at your clinic.
           </h2>
           <p className="text-lg text-[--sage]/80 mb-9">
             A 20-minute walkthrough, using your own patient flow — no slides,

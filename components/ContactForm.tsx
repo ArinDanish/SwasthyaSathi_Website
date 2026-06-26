@@ -10,6 +10,7 @@ const inputClasses =
   "w-full px-4 py-3 border border-[--line] rounded-xl bg-white focus:ring-2 focus:ring-[--teal] focus:border-transparent outline-none transition text-[--ink] placeholder:text-[--ash]/60";
 
 export default function ContactForm({ setFormStatus }: ContactFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,13 +33,21 @@ export default function ContactForm({ setFormStatus }: ContactFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("loading");
+    setIsSubmitting(true);
 
     try {
-      // Simulate form submission
-      // In production, replace with an actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      console.log("Form submitted:", formData);
+      if (!response.ok) {
+        throw new Error("Failed to submit contact form");
+      }
+
       setFormStatus("success");
 
       setFormData({
@@ -55,6 +64,8 @@ export default function ContactForm({ setFormStatus }: ContactFormProps) {
       console.error("Error submitting form:", error);
       setFormStatus("error");
       setTimeout(() => setFormStatus("idle"), 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -159,9 +170,10 @@ export default function ContactForm({ setFormStatus }: ContactFormProps) {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         className="w-full bg-[--ink] hover:bg-[--teal-deep] text-[--sand] font-semibold py-3.5 px-6 rounded-full transition-colors"
       >
-        Send message
+        {isSubmitting ? "Sending..." : "Send message"}
       </button>
 
       <p className="text-xs text-[--ash]">
