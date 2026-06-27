@@ -36,16 +36,6 @@ export default function ContactPage() {
                 Within one business day
               </p>
             </div>
-            <div className="bg-[--ink] text-[--sand] rounded-2xl p-7">
-              <h3 className="font-mono text-xs uppercase tracking-wider text-[--coral] mb-2">
-                For existing clinics
-              </h3>
-              <p className="text-[--sage]/80 text-sm leading-relaxed">
-                Already using Swasthya Sathi? Reach your account manager
-                directly through the in-app support panel for the fastest
-                response.
-              </p>
-            </div>
           </div>
 
           <ContactPanel />
