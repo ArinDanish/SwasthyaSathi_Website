@@ -34,20 +34,6 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
           {/* ── Left: copy ── */}
           <div>
-            <div
-              className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full border text-xs font-mono font-semibold tracking-widest uppercase"
-              style={{
-                background: "rgba(62, 174, 224, 0.1)",
-                borderColor: "rgba(62, 174, 224, 0.3)",
-                color: "#1d8bbf",
-              }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ background: "#3eaee0", animation: "pulse-glow 2s infinite" }}
-              />
-              AI care companion for Indian clinics
-            </div>
 
             <h1
               className="font-display font-bold leading-[1.04] tracking-tight"
@@ -183,20 +169,6 @@ export default function Hero() {
                     {i < 2 && <div style={{ marginBottom: "1.25rem" }} />}
                   </div>
                 ))}
-              </div>
-
-              {/* Live indicator */}
-              <div
-                className="mt-6 flex items-center gap-2 px-3 py-2 rounded-lg"
-                style={{ background: "rgba(62, 174, 224, 0.12)" }}
-              >
-                <span
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: "#3eaee0", animation: "pulse-glow 2s infinite" }}
-                />
-                <span className="text-xs font-mono" style={{ color: "#7acfef" }}>
-                  System live — 99.9% uptime
-                </span>
               </div>
             </div>
 

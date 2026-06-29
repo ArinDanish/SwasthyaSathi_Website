@@ -3,7 +3,6 @@ export default function CompanyStory() {
     <section className="py-20 md:py-28" style={{ background: "#ffffff" }}>
       <div className="container">
         <div className="max-w-3xl mx-auto">
-          <p className="eyebrow mb-4">Our mission</p>
           <h2 className="section-title">
             Transforming healthcare through intelligent technology
           </h2>

@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swasthya Sathi — AI that runs alongside your clinic",
+  title: "Swasthya Sathi | AI that runs alongside your clinic",
   description:
     "Swasthya Sathi is an AI care companion for Indian clinics, nursing homes and hospitals automating check-in, documentation and follow-up so your team can focus on patients.",
 };

@@ -13,7 +13,7 @@ const features = [
     ),
     title: "Smart check-in",
     description:
-      "Patients register and share history through a guided AI form — front desk reviews instead of re-typing.",
+      "Patients register and share history through a guided AI form - front desk reviews instead of re-typing.",
     accent: "#3eaee0",
     bg: "rgba(62, 174, 224, 0.07)",
   },
@@ -139,10 +139,9 @@ export default function Features() {
     <section className="py-20 md:py-28" style={{ background: "#ffffff" }}>
       <div className="container">
         <div className="max-w-xl mb-14">
-          <p className="eyebrow mb-4">How it fits into your day</p>
           <h2 className="section-title">One assistant, four moments that matter</h2>
           <p className="section-subtitle">
-            Swasthya Sathi sits at each step of a visit — not as another
+            Swasthya Sathi sits at each step of a visit - not as another
             dashboard to check, but as the work getting done in the background.
           </p>
         </div>

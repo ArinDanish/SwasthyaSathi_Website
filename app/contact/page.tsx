@@ -6,10 +6,9 @@ export default function ContactPage() {
     <section className="bg-[--sand] py-16 md:py-24">
       <div className="container">
         <div className="max-w-2xl mb-14">
-          <p className="eyebrow mb-4">Get in touch</p>
           <h1 className="section-title">Let&apos;s talk about your clinic</h1>
           <p className="section-subtitle">
-            Tell us a bit about how your clinic runs today — we&apos;ll come back
+            Tell us a bit about how your clinic runs today - we&apos;ll come back
             with a setup that fits, not a generic demo.
           </p>
         </div>
@@ -22,10 +21,10 @@ export default function ContactPage() {
                 Email
               </h3>
               <a
-                href="mailto:contact@swasthyasathi.com"
+                href="mailto:swasthyasathisupport@gmail.com"
                 className="font-display text-lg font-semibold text-[--ink] hover:text-[--teal]"
               >
-                contact@swasthyasathi.com
+                swasthyasathisupport@gmail.com
               </a>
             </div>
             <div className="bg-white rounded-2xl border border-[--line] p-7">

@@ -7,9 +7,9 @@ interface PulseLineProps {
 
 /**
  * Signature motif: a heartbeat / ECG trace. Used at multiple sizes:
- * — Hero: large, very faint, behind headline
- * — Dividers: thin, full-width, semi-transparent
- * — CTA section: decorative top edge
+ * - Hero: large, very faint, behind headline
+ * - Dividers: thin, full-width, semi-transparent
+ * - CTA section: decorative top edge
  */
 export default function PulseLine({
   className = "",

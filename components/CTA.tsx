@@ -35,20 +35,7 @@ export default function CTA() {
 
       <div className="container relative">
         <div className="max-w-2xl mx-auto text-center">
-          <div
-            className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold tracking-widest uppercase"
-            style={{
-              background: "rgba(62, 174, 224, 0.15)",
-              border: "1px solid rgba(62, 174, 224, 0.3)",
-              color: "#7acfef",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "#3eaee0", animation: "pulse-glow 2s infinite" }}
-            />
-            Ready when you are
-          </div>
+          
 
           <h2
             className="font-display font-bold leading-tight mb-5"
@@ -63,7 +50,7 @@ export default function CTA() {
             className="text-lg mb-10 max-w-md mx-auto leading-relaxed"
             style={{ color: "rgba(255,255,255,0.65)" }}
           >
-            A 20-minute walkthrough, using your own patient flow — no slides,
+            A 20-minute walkthrough, using your own patient flow - no slides,
             no sales script.
           </p>
 
@@ -94,13 +81,6 @@ export default function CTA() {
             </Link>
           </div>
 
-          {/* Social proof strip */}
-          <p
-            className="mt-10 text-sm"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            No credit card required · 30-day free trial · Setup in under an hour
-          </p>
         </div>
       </div>
     </section>

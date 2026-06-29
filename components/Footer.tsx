@@ -35,27 +35,6 @@ export default function Footer() {
               An AI care companion that runs alongside Indian clinics, nursing
               homes and hospitals.
             </p>
-
-            {/* Social */}
-            <div className="flex gap-3 mt-5">
-              {[
-                { label: "LinkedIn", icon: <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>, extra: <circle cx="4" cy="4" r="2"/> },
-                { label: "Twitter", icon: <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/> },
-              ].map(({ label, icon, extra }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  style={{ background: "rgba(62,174,224,0.1)", color: "#3eaee0" }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {icon}
-                    {extra}
-                  </svg>
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Product */}
@@ -64,7 +43,7 @@ export default function Footer() {
               Product
             </h4>
             <ul className="space-y-3 text-sm">
-              {["Features", "Pricing", "Documentation"].map((item) => (
+              {["Features", "Documentation"].map((item) => (
                 <li key={item}>
                   <Link
                     href="/product"
@@ -135,11 +114,6 @@ export default function Footer() {
             className="flex items-center gap-2 text-xs font-mono"
             style={{ color: "rgba(200,223,240,0.35)" }}
           >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "#3eaee0", animation: "pulse-glow 2s infinite" }}
-            />
-            All systems operational
           </div>
         </div>
       </div>

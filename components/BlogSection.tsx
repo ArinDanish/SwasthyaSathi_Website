@@ -38,7 +38,6 @@ export default function BlogSection() {
   return (
     <div className="mt-20 md:mt-24">
       <div className="max-w-2xl mb-10">
-        <p className="eyebrow mb-4">From the blog</p>
         <h2 className="section-title">Ideas for calmer clinic days</h2>
         <p className="section-subtitle">
           Notes on patient flow, clinical operations, and using AI where it

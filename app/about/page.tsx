@@ -8,7 +8,6 @@ export default function AboutPage() {
       <section className="bg-[--sand] pt-16 pb-12 md:pt-24 md:pb-16">
         <div className="container">
           <div className="max-w-2xl">
-            <p className="eyebrow mb-4">About us</p>
             <h1 className="section-title">
               We started where the paperwork was
             </h1>
