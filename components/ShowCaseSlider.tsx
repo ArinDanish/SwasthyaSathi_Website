@@ -3,58 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-const slides = [
-  {
-    title: "Multilingual voice capture",
-    description:
-      "Patients speak in their own regional language and auto language transcription lets the doctor follow along in real time, in-person or over video consults.",
-    image: "/features_images/Multilingual Voice.png",
-    accent: "#3B82F6",
-  },
-  {
-    title: "AI diagnosis & smart prescription",
-    description:
-      "Symptoms and history are turned into a structured clinical picture, with prescription suggestions the doctor reviews and signs off in seconds.",
-    image: "/features_images/AI Diagnosis & Smart Prescription.png",
-    accent: "#8B5CF6",
-  },
-  {
-    title: "AI alerts",
-    description:
-      "Drug interactions, abnormal vitals and follow-up risks are flagged automatically so nothing slips through during a busy clinic day.",
-    image: "/features_images/AI Alerts.png",
-    accent: "#EF4444",
-  },
-  {
-    title: "Lab to clinic integration & analysis",
-    description:
-      "Lab results flow straight into the patient record, with AI analysis surfacing what matters before the doctor even opens the report.",
-    image: "/features_images/Lab to clinic Integration.png",
-    accent: "#06B6D4",
-  },
-  {
-    title: "AI call assistant & scheduler",
-    description:
-      "An AI voice assistant answers calls, books and reschedules appointments, and sends reminders without adding to your front-desk headcount.",
-    image: "/features_images/AI call assistant & schedular.png",
-    accent: "#10B981",
-  },
-  {
-    title: "Inventory management",
-    description:
-      "Stock levels, expiries and reorder points are tracked automatically, with low-stock alerts before they become a problem.",
-    image: "/features_images/Inventory Management.png",
-    accent: "#F59E0B",
-  },
-  {
-    title: "Revenue intelligence",
-    description:
-      "AI surfaces revenue trends, leakage and growth opportunities across your clinic so decisions are backed by data, not guesswork.",
-    image: "/features_images/Revenue Intelligence.png",
-    accent: "#00D4AA",
-  },
-];
+import { features } from "@/lib/features";
 
 const AUTO_PLAY_MS = 4500;
 
@@ -67,13 +16,13 @@ export default function ShowcaseSlider() {
   useEffect(() => {
     if (paused) return;
     const id = setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length);
+      setActive((prev) => (prev + 1) % features.length);
     }, AUTO_PLAY_MS);
     return () => clearInterval(id);
   }, [paused]);
 
   const goTo = (i: number) => {
-    const next = (i + slides.length) % slides.length;
+    const next = (i + features.length) % features.length;
     if (next === active) return;
     setIsTransitioning(true);
     setTimeout(() => {
@@ -83,10 +32,14 @@ export default function ShowcaseSlider() {
     setPaused(true);
   };
 
-  const slide = slides[active];
+  const openFeature = (slug: string) => {
+    router.push(`/features/${slug}`);
+  };
+
+  const slide = features[active];
 
   return (
-    <section className="py-12 md:py-16" style={{ background: "#f5f9fd" }}>
+    <section id="platform-features" className="py-12 md:py-16" style={{ background: "#f5f9fd" }}>
       <div className="container mx-auto px-4 max-w-6xl">
 
         {/* Header */}
@@ -113,7 +66,7 @@ export default function ShowcaseSlider() {
             </h2>
             <p style={{ color: "#4a6080", lineHeight: "1.6", fontSize: "0.875rem" }}>
               Explore the moments SwasthyaSathi handles for your clinic — click any
-              feature to explore it on the product page.
+              feature to see what it does, why it matters, and how it works.
             </p>
           </div>
 
@@ -137,7 +90,7 @@ export default function ShowcaseSlider() {
               </svg>
             </button>
             <span style={{ fontFamily: "monospace", fontSize: "0.75rem", color: "#8aa5be", minWidth: 36, textAlign: "center" }}>
-              {active + 1} / {slides.length}
+              {active + 1} / {features.length}
             </span>
             <button
               aria-label="Next slide"
@@ -161,6 +114,13 @@ export default function ShowcaseSlider() {
 
         {/* ── Main slide ── */}
         <div
+          role="button"
+          tabIndex={0}
+          aria-label={`Open ${slide.title} details`}
+          onClick={() => openFeature(slide.slug)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") openFeature(slide.slug);
+          }}
           style={{
             borderRadius: 16,
             overflow: "hidden",
@@ -169,14 +129,15 @@ export default function ShowcaseSlider() {
             background: "#0A1628",
             /* KEY FIX: fixed height so it doesn't blow out the viewport */
             height: "clamp(320px, 45vh, 500px)",
+            cursor: "pointer",
           }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
           {/* All slide images stacked; only active is visible */}
-          {slides.map((s, i) => (
+          {features.map((s, i) => (
             <div
-              key={s.title}
+              key={s.slug}
               style={{
                 position: "absolute",
                 inset: 0,
@@ -260,11 +221,14 @@ export default function ShowcaseSlider() {
                 margin: "0 0 16px",
               }}
             >
-              {slide.description}
+              {slide.tagline}
             </p>
 
             <button
-              onClick={() => router.push("/product")}
+              onClick={(e) => {
+                e.stopPropagation();
+                openFeature(slide.slug);
+              }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -281,7 +245,7 @@ export default function ShowcaseSlider() {
                 transition: "background 0.2s",
               }}
             >
-              Explore in product
+              Learn more about this feature
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -300,11 +264,13 @@ export default function ShowcaseSlider() {
             scrollbarWidth: "none",
           }}
         >
-          {slides.map((s, i) => (
+          {features.map((s, i) => (
             <button
-              key={s.title}
+              key={s.slug}
               onClick={() => goTo(i)}
-              aria-label={`Go to: ${s.title}`}
+              onDoubleClick={() => openFeature(s.slug)}
+              aria-label={`Preview: ${s.title}. Double-click to open full details.`}
+              title={`${s.title} — click to preview, double-click to open`}
               style={{
                 flexShrink: 0,
                 position: "relative",
@@ -363,10 +329,11 @@ export default function ShowcaseSlider() {
 
         {/* ── Progress dots ── */}
         <div style={{ display: "flex", justifyContent: "center", gap: 5, marginTop: 12 }}>
-          {slides.map((s, i) => (
+          {features.map((s, i) => (
             <button
-              key={s.title}
+              key={s.slug}
               onClick={() => goTo(i)}
+              aria-label={`Preview ${s.title}`}
               style={{
                 height: 5,
                 width: active === i ? 24 : 5,
