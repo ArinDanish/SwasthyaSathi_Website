@@ -1,56 +1,24 @@
 import { NextResponse } from "next/server";
-import { pool } from "@/lib/db";
+import { client } from "@/lib/sanity";
 
-export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-type BlogRow = {
-  id: number;
-  category: string;
-  title: string;
-  excerpt: string;
-  readTime: string;
-};
-
-function getBlogTableName() {
-  const tableName = process.env.MYSQL_BLOG_TABLE ?? "blog";
-
-  if (!/^[a-zA-Z0-9_]+$/.test(tableName)) {
-    throw new Error("Invalid blog table name.");
-  }
-
-  return tableName;
-}
+// Fetches all published posts, newest first.
+const QUERY = `*[_type == "blogPost" && defined(publishedAt)] | order(publishedAt desc) {
+  "id": _id,
+  category,
+  title,
+  excerpt,
+  readTime,
+  "slug": slug.current
+}`;
 
 export async function GET() {
   try {
-    const tableName = getBlogTableName();
-    const [rows] = await pool.query(
-      `SELECT
-        id,
-        category,
-        title,
-        excerpt,
-        read_time AS readTime
-       FROM ${tableName}
-       WHERE is_active = 1
-       ORDER BY created_at DESC, id DESC
-       LIMIT 3`
-    );
-
-    return NextResponse.json(
-      { blogs: rows as BlogRow[] },
-      {
-        headers: {
-          "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
-        },
-      }
-    );
-  } catch (error) {
-    console.error("Blog fetch failed:", error);
-
-    return NextResponse.json(
-      { error: "Unable to load blog posts." },
-      { status: 500 }
-    );
+    const blogs = await client.fetch(QUERY);
+    return NextResponse.json({ blogs });
+  } catch (err) {
+    console.error("Blogs route error:", err);
+    return NextResponse.json({ error: "Failed to load blogs" }, { status: 500 });
   }
 }

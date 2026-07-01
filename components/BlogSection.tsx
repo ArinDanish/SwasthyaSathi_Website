@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type BlogPost = {
-  id: number;
+  id: string;
   category: string;
   title: string;
   excerpt: string;
   readTime: string;
+  slug: string;
 };
 
 export default function BlogSection() {
@@ -36,7 +38,7 @@ export default function BlogSection() {
   }, []);
 
   return (
-    <div className="mt-20 md:mt-24">
+    <div id="blog" className="mt-20 md:mt-24" style={{ scrollMarginTop: "6rem" }}>
       <div className="max-w-2xl mb-10">
         <h2 className="section-title">Ideas for calmer clinic days</h2>
         <p className="section-subtitle">
@@ -123,8 +125,8 @@ export default function BlogSection() {
               <p className="text-sm leading-relaxed flex-1" style={{ color: "#5a7a96" }}>
                 {post.excerpt}
               </p>
-              <button
-                type="button"
+              <Link
+                href={`/blog/${post.slug}`}
                 className="mt-6 self-start text-sm font-semibold flex items-center gap-1.5 transition-colors duration-200 hover:gap-2.5"
                 style={{ color: "#1b4f9c" }}
               >
@@ -132,7 +134,7 @@ export default function BlogSection() {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
-              </button>
+              </Link>
             </article>
           ))}
         </div>
